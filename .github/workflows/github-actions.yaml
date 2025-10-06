@@ -65,8 +65,8 @@ jobs:
 
           # Aplica o deploy via Azure CLI
           az functionapp deployment source config-zip \
-            --name ${{ secrets.FUNCTION_APP_NAME }} \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --name "${{ secrets.FUNCTION_APP_NAME }}" \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
             --src function.zip > /dev/null
 
           echo "✅ Deploy concluído com sucesso."
