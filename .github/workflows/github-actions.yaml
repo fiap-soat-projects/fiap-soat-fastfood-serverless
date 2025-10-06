@@ -57,21 +57,9 @@ jobs:
         env:
           FUNCTION_APP_SETTINGS: ${{ secrets.FUNCTION_APP_SETTINGS }}
 
-      - name: Deploy Azure Function (ZIP)
-        run: |
-          echo "Publishing Azure Function..."
-
-          dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj \
-            --configuration Release \
-            --output ./publish
-
-          cd publish
-          zip -r ../function.zip . > /dev/null
-          cd ..
-
-          az functionapp deployment source config-zip \
-            --name "${{ secrets.FUNCTION_APP_NAME }}" \
-            --resource-group "${{ secrets.FUNCTION_APP_RG }}" \
-            --src function.zip > /dev/null
-
-          echo "✅ Deployed successfully."
+      - name: Deploy Azure Function
+        uses: azure/functions-action@v1
+        with:
+          app-name: ${{ secrets.FUNCTION_APP_NAME }}
+          package: './fiap-soat-fastfood-serverless.function'
+          publish-profile: ${{ secrets.FUNCTION_PUBLISH_PROFILE }}
