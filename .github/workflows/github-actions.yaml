@@ -38,7 +38,9 @@ jobs:
 
       - name: Set Function App Settings
         run: |
-          cat > functionapp-settings.json <<'EOF' ${{ secrets.FUNCTION_APP_SETTINGS }} EOF
+          cat > functionapp-settings.json <<'EOF' 
+          ${{ secrets.FUNCTION_APP_SETTINGS }} 
+          EOF
 
           echo "Validate JSON..."
           jq . functionapp-settings.json
