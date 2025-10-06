@@ -2,7 +2,6 @@
     "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     "KEYVAULT_URI": "https://kv-auth-demo.vault.azure.net/",
     "JWT_KEY_NAME": "jwt-signing-key",
     "ISSUER": "https://validarcliente-d2exa0frcyfhehe8.eastus-01.azurewebsites.net/api",
