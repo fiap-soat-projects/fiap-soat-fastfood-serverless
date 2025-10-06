@@ -27,7 +27,7 @@ jobs:
 
       - name: .NET Build
         run: dotnet build --configuration Release
-
+      
       - name: Azure Login
         uses: azure/login@v1
         with:
@@ -57,9 +57,12 @@ jobs:
         env:
           FUNCTION_APP_SETTINGS: ${{ secrets.FUNCTION_APP_SETTINGS }}
 
+      - name: Publish
+        run: dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj --configuration Release --output ./publish --no-build
+
       - name: Deploy Azure Function
         uses: azure/functions-action@v1
         with:
           app-name: ${{ secrets.FUNCTION_APP_NAME }}
-          package: './fiap-soat-fastfood-serverless.function'
+          package: './publish'
           publish-profile: ${{ secrets.FUNCTION_PUBLISH_PROFILE }}
