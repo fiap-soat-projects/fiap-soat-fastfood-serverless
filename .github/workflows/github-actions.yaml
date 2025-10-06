@@ -38,11 +38,18 @@ jobs:
 
       - name: Set Function App Settings
         run: |
-          echo "${{ secrets.FUNCTION_APP_SETTINGS }}" > functionapp-settings.json
-          SETTINGS_JSON=$(cat functionapp-settings.json)
-          for key in $(echo "$SETTINGS_JSON" | jq -r 'keys[]'); do
-            value=$(echo "$SETTINGS_JSON" | jq -r --arg k "$key" '.[$k]')
-            az functionapp config appsettings set --name ${{ secrets.FUNCTION_APP_NAME }} --resource-group ${{ secrets.FUNCTION_APP_RG }} --settings "$key=$value"
+          cat > functionapp-settings.json <<'EOF' ${{ secrets.FUNCTION_APP_SETTINGS }} EOF
+
+          echo "Validate JSON..."
+          jq . functionapp-settings.json
+
+          echo "Applying Application Settings..."
+          for key in $(jq -r 'keys[]' functionapp-settings.json); do
+            value=$(jq -r --arg k "$key" '.[$k]' functionapp-settings.json)
+            az functionapp config appsettings set \
+              --name ${{ secrets.FUNCTION_APP_NAME }} \
+              --resource-group ${{ secrets.FUNCTION_APP_RG }} \
+              --settings "$key=$value"
           done
         env:
           FUNCTION_APP_SETTINGS: ${{ secrets.FUNCTION_APP_SETTINGS }}
@@ -51,4 +58,4 @@ jobs:
       
         run: |
           cd ./fiap.soat.fastfood.serverless.function/
-          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp --force
+          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp 
