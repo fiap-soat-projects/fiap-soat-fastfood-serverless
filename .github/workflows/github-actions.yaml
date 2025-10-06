@@ -48,4 +48,7 @@ jobs:
           FUNCTION_APP_SETTINGS: ${{ secrets.FUNCTION_APP_SETTINGS }}
 
       - name: Deploy Azure Function
-        run: func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp
+      
+        run: |
+          cd ./fiap.soat.fastfood.serverless.function/
+          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp
