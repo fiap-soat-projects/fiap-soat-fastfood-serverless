@@ -42,8 +42,10 @@ jobs:
           ${{ secrets.FUNCTION_APP_SETTINGS }} 
           EOF
 
-          echo "Validate JSON..."
-          jq . functionapp-settings.json
+          if ! jq empty functionapp-settings.json > /dev/null 2>&1; then
+            echo "❌ Error: Invalid JSON in FUNCTION_APP_SETTINGS secret"
+            exit 1
+          fi
 
           echo "Applying Application Settings..."
           for key in $(jq -r 'keys[]' functionapp-settings.json); do
@@ -53,6 +55,8 @@ jobs:
               --resource-group ${{ secrets.FUNCTION_APP_RG }} \
               --settings "$key=$value"
           done
+
+          echo "✅ Application Settings configured successfully."
         env:
           FUNCTION_APP_SETTINGS: ${{ secrets.FUNCTION_APP_SETTINGS }}
 
@@ -60,4 +64,4 @@ jobs:
       
         run: |
           cd ./fiap.soat.fastfood.serverless.function/
-          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp 
+          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp --force
