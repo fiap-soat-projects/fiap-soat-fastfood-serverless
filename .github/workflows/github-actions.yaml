@@ -61,15 +61,17 @@ jobs:
         run: |
           echo "Publishing Azure Function..."
 
-          dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj -c Release -o ./publish
+          dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj \
+            --configuration Release \
+            --output ./publish
 
           cd publish
           zip -r ../function.zip . > /dev/null
           cd ..
 
           az functionapp deployment source config-zip \
-            --name ${{ secrets.FUNCTION_APP_NAME }} \
-            --resource-group ${{ secrets.FUNCTION_APP_RG }} \
+            --name "${{ secrets.FUNCTION_APP_NAME }}" \
+            --resource-group "${{ secrets.FUNCTION_APP_RG }}" \
             --src function.zip > /dev/null
 
           echo "✅ Deployed successfully."
