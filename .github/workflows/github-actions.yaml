@@ -22,9 +22,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: .NET Restore
-        run: dotnet restore
-
       - name: .NET Build
         run: dotnet build --configuration Release
       
@@ -65,4 +62,3 @@ jobs:
         with:
           app-name: ${{ secrets.FUNCTION_APP_NAME }}
           package: './publish'
-          publish-profile: ${{ secrets.FUNCTION_PUBLISH_PROFILE }}
