@@ -51,4 +51,4 @@ jobs:
       
         run: |
           cd ./fiap.soat.fastfood.serverless.function/
-          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp
+          func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp --force
