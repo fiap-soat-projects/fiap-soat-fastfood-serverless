@@ -47,6 +47,5 @@ jobs:
         env:
           FUNCTION_APP_SETTINGS: ${{ secrets.FUNCTION_APP_SETTINGS }}
 
-      # 8. Deploy Function
       - name: Deploy Azure Function
         run: func azure functionapp publish ${{ secrets.FUNCTION_APP_NAME }} --csharp
