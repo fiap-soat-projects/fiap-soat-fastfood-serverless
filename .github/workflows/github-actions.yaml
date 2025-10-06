@@ -61,7 +61,7 @@ jobs:
         run: |
           echo "Publishing Azure Function..."
 
-          dotnet publish -c Release -o ./publish
+          dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj -c Release -o ./publish
 
           cd publish
           zip -r ../function.zip . > /dev/null
