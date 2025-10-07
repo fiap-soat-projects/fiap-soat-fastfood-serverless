@@ -57,16 +57,9 @@ jobs:
       - name: Publish
         run: dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj --configuration Release --output ./publish
 
-      - name: Deploy Azure Function
-        run: |
-          cd "./publish"
-          zip -r ../function.zip . > /dev/null
-          cd ..
-
-          az functionapp deploy \
-            --resource-group "${{ secrets.FUNCTION_APP_RG }}" \
-            --name "${{ secrets.FUNCTION_APP_NAME }}" \
-            --src-path function.zip \
-            --type zip
-
-          echo "✅ Function App deployed successfully."
+      - name: Deploy Azure Function (Flex)
+        uses: Azure/functions-action@v4
+        with:
+          app-name: ${{ secrets.FUNCTION_APP_NAME }}
+          package: './publish'
+          respect-funcignore: true
