@@ -58,7 +58,7 @@ jobs:
         run: dotnet publish ./fiap.soat.fastfood.serverless.function/fiap.soat.fastfood.serverless.function.csproj --configuration Release --output ./publish
 
       - name: Deploy Azure Function (Flex)
-        uses: Azure/functions-action@v4
+        uses: Azure/functions-action@v3
         with:
           app-name: ${{ secrets.FUNCTION_APP_NAME }}
           package: './publish'
