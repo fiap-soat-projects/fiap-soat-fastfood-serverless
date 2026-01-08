@@ -1,9 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11312.210 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fiap.soat.fastfood.serverless.function", "fiap.soat.fastfood.serverless.function\fiap.soat.fastfood.serverless.function.csproj", "{8654B972-B819-4E4A-A868-276D8E445C7D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{28EF775F-A8E1-4351-A0D3-51D2614D776B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{97C4893E-43D7-4165-8410-55BE6AEF09A0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\github-actions.yaml = .github\workflows\github-actions.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{97C4893E-43D7-4165-8410-55BE6AEF09A0} = {28EF775F-A8E1-4351-A0D3-51D2614D776B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E59D4E0-04FA-4EF4-896F-378A5D4AC259}
